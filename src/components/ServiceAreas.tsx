@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SERVICE_AREAS, COMPANY_FACTS } from '../data/companyData';
-import { MapPin, CheckCircle, Search, Phone, Navigation } from 'lucide-react';
+import { MapPin, CheckCircle, Phone, Navigation } from 'lucide-react';
 
 export const ServiceAreas: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -40,21 +40,21 @@ export const ServiceAreas: React.FC = () => {
   };
 
   return (
-    <section id="service-areas" className="py-16 sm:py-24 bg-slate-900 text-white border-b border-slate-800">
+    <section id="service-areas" className="py-12 sm:py-20 lg:py-24 bg-slate-900 text-white border-b border-slate-800 w-full overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Info & Coverage Checker */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-4 sm:space-y-6 text-left">
             <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider">
-              <Navigation className="w-4 h-4 text-amber-400" />
+              <Navigation className="w-4 h-4 text-amber-400 shrink-0" />
               <span>Local Glasgow Coverage</span>
               <span aria-hidden="true">·</span>
               <span>Based in Stepps G33</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight text-balance">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight text-balance break-words">
               Proudly Serving Stepps, Glasgow & Surrounding Areas
             </h2>
 
@@ -63,27 +63,25 @@ export const ServiceAreas: React.FC = () => {
             </p>
 
             {/* Postcode Area Checker Tool */}
-            <div className="p-5 rounded-xl bg-slate-800/90 border border-slate-700 shadow-sm space-y-3">
-              <span className="text-xs font-bold text-slate-200">
+            <div className="p-4 sm:p-5 rounded-xl bg-slate-800/90 border border-slate-700 shadow-sm space-y-3 w-full">
+              <span className="text-xs font-bold text-slate-200 block">
                 Check If We Cover Your Glasgow Postcode
               </span>
 
-              <form onSubmit={handleCheck} className="flex gap-2">
-                <div className="relative flex-1">
-                  <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => {
-                      setQuery(e.target.value);
-                      if (checkResult) setCheckResult(null);
-                    }}
-                    placeholder="Enter Glasgow postcode or area (e.g. G33, Stepps, G12)..."
-                    className="w-full px-3.5 py-2.5 text-xs bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  />
-                </div>
+              <form onSubmit={handleCheck} className="flex flex-col sm:flex-row gap-2 w-full">
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                    if (checkResult) setCheckResult(null);
+                  }}
+                  placeholder="Enter Glasgow postcode (e.g. G33, Stepps, G12)..."
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
                 <button
                   type="submit"
-                  className="px-4 py-2.5 text-xs font-bold text-white bg-amber-600 hover:bg-amber-500 rounded-lg transition-colors cursor-pointer shrink-0"
+                  className="w-full sm:w-auto px-5 py-2.5 text-xs font-bold text-white bg-amber-600 hover:bg-amber-500 rounded-lg transition-colors cursor-pointer shrink-0 text-center"
                 >
                   Check Area
                 </button>
@@ -91,7 +89,7 @@ export const ServiceAreas: React.FC = () => {
 
               {checkResult && (
                 <div
-                  className={`p-3 rounded-lg text-xs flex items-start gap-2.5 animate-in fade-in duration-200 ${
+                  className={`p-3 rounded-lg text-xs flex items-start gap-2.5 animate-in fade-in duration-200 w-full ${
                     checkResult.covered
                       ? 'bg-emerald-950/60 border border-emerald-700 text-emerald-200'
                       : 'bg-amber-950/60 border border-amber-700 text-amber-200'
@@ -99,7 +97,7 @@ export const ServiceAreas: React.FC = () => {
                 >
                   <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold">
+                    <span className="font-bold block">
                       {checkResult.covered
                         ? `Yes! We provide full coverage in ${checkResult.areaName}.`
                         : `We regularly travel across Glasgow & Lanarkshire.`}
@@ -113,43 +111,43 @@ export const ServiceAreas: React.FC = () => {
             </div>
 
             {/* Direct call note */}
-            <div className="flex items-center gap-2 text-xs text-slate-400">
+            <div className="flex items-center gap-2 text-xs text-slate-400 flex-wrap">
               <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
               <span>Base Hub: 48 Lednock Road, Stepps, Glasgow G33 6LU</span>
             </div>
           </div>
 
           {/* Right Column: Service Area Chips Grid */}
-          <div className="lg:col-span-6">
-            <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 sm:p-8">
-              <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">
+          <div className="lg:col-span-6 w-full">
+            <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-4 sm:p-8 w-full">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-300 uppercase tracking-wider mb-3.5">
                 Primary Glasgow Communities We Serve Daily
               </h3>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs w-full">
                 {SERVICE_AREAS.map((area) => (
                   <div
                     key={area.name}
-                    className={`p-2.5 rounded-lg border transition-colors flex flex-col justify-between ${
+                    className={`p-2 sm:p-2.5 rounded-lg border transition-colors flex flex-col justify-between min-w-0 ${
                       area.highlighted
                         ? 'bg-slate-700/80 border-amber-500/50 text-white font-semibold'
                         : 'bg-slate-800/60 border-slate-700 text-slate-300 hover:border-slate-600'
                     }`}
                   >
-                    <span className="font-bold">{area.name}</span>
+                    <span className="font-bold truncate text-[11px] sm:text-xs">{area.name}</span>
                     <span className="text-[10px] text-amber-400/90 font-mono mt-0.5">{area.postcode}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-6 pt-5 border-t border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+              <div className="mt-5 pt-4 border-t border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-xs text-slate-400">
                 <span>Don't see your area listed?</span>
                 <a
                   href={COMPANY_FACTS.phoneTel}
                   className="font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1.5"
                 >
-                  <Phone className="w-3.5 h-3.5" />
-                  <span>Call 07831 191919 for immediate confirmation</span>
+                  <Phone className="w-3.5 h-3.5 shrink-0" />
+                  <span>Call 07831 191919 for confirmation</span>
                 </a>
               </div>
 

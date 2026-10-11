@@ -80,34 +80,34 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in duration-200 overflow-y-auto">
       <div 
-        className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden"
+        className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-auto max-h-[92vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-slate-900 text-white p-5 flex items-center justify-between">
+        <div className="bg-slate-900 text-white p-4 sm:p-5 flex items-center justify-between shrink-0">
           <div>
             <div className="text-[11px] font-bold text-amber-400 uppercase tracking-wider">
               Free Written Estimate
             </div>
-            <h3 className="text-lg font-extrabold text-white">
+            <h3 className="text-base sm:text-lg font-extrabold text-white">
               Request a Free Quote
             </h3>
           </div>
           <button
             onClick={handleClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors"
+            className="p-2 text-slate-400 hover:text-white rounded-lg transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Modal Body */}
-        <div className="p-6">
+        {/* Modal Body with scrollable content if needed */}
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1">
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3.5 w-full">
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
                   Service of Interest
@@ -115,7 +115,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 <select
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
                 >
                   {SERVICES_DATA.map((s) => (
                     <option key={s.id} value={s.title}>
@@ -135,13 +135,13 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Fiona Murray"
-                    className={`w-full px-3.5 py-2 text-xs bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900 ${
+                    className={`w-full px-3.5 py-2.5 text-xs bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900 ${
                       errors.name ? 'border-red-400 bg-red-50/20' : 'border-slate-300'
                     }`}
                   />
                   {errors.name && (
                     <p className="mt-1 text-[11px] text-red-600 flex items-center gap-1">
-                      <AlertCircle className="w-3 h-3" />
+                      <AlertCircle className="w-3 h-3 shrink-0" />
                       <span>{errors.name}</span>
                     </p>
                   )}
@@ -156,13 +156,13 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="e.g. 07831 191919"
-                    className={`w-full px-3.5 py-2 text-xs bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900 ${
+                    className={`w-full px-3.5 py-2.5 text-xs bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900 ${
                       errors.phone ? 'border-red-400 bg-red-50/20' : 'border-slate-300'
                     }`}
                   />
                   {errors.phone && (
                     <p className="mt-1 text-[11px] text-red-600 flex items-center gap-1">
-                      <AlertCircle className="w-3 h-3" />
+                      <AlertCircle className="w-3 h-3 shrink-0" />
                       <span>{errors.phone}</span>
                     </p>
                   )}
@@ -179,7 +179,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                     value={postcode}
                     onChange={(e) => setPostcode(e.target.value)}
                     placeholder="e.g. Stepps G33"
-                    className="w-full px-3.5 py-2 text-xs bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900"
+                    className="w-full px-3.5 py-2.5 text-xs bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900"
                   />
                 </div>
 
@@ -190,7 +190,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   <select
                     value={urgency}
                     onChange={(e) => setUrgency(e.target.value)}
-                    className="w-full px-3.5 py-2 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-3.5 py-2.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
                   >
                     <option value="Standard">Next Few Days (Standard)</option>
                     <option value="Urgent">Urgent / Today</option>
@@ -199,52 +199,52 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 </div>
               </div>
 
-              <div className="pt-2">
+              <div className="pt-1.5">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 px-4 text-xs font-bold text-white bg-amber-600 hover:bg-amber-500 rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full py-3.5 px-4 text-xs sm:text-sm font-bold text-white bg-amber-600 hover:bg-amber-500 rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 text-center"
                 >
                   {isSubmitting ? (
                     <>
-                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin shrink-0" />
                       <span>Requesting Free Quote...</span>
                     </>
                   ) : (
                     <>
                       <span>Submit for Instant Callback</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                     </>
                   )}
                 </button>
               </div>
 
-              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+              <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-1.5 text-[11px] text-slate-500 text-center sm:text-left">
                 <span>Or speak to an engineer now:</span>
                 <a
                   href={COMPANY_FACTS.phoneTel}
                   className="font-bold text-amber-600 hover:underline flex items-center gap-1"
                 >
-                  <Phone className="w-3 h-3" />
+                  <Phone className="w-3 h-3 shrink-0" />
                   <span>{COMPANY_FACTS.phone}</span>
                 </a>
               </div>
             </form>
           ) : (
-            <div className="py-6 text-center space-y-4">
+            <div className="py-5 text-center space-y-3.5 w-full">
               <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-7 h-7" />
               </div>
-              <h4 className="text-lg font-bold text-slate-900">
+              <h4 className="text-base sm:text-lg font-bold text-slate-900">
                 Quote Request Received!
               </h4>
-              <p className="text-xs text-slate-600 max-w-sm mx-auto">
+              <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
                 Thank you, <span className="font-semibold text-slate-900">{name}</span>. Our family team will review your {selectedService} request and call you back shortly on {phone}.
               </p>
               <div className="pt-2">
                 <button
                   onClick={handleClose}
-                  className="px-5 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg"
+                  className="w-full sm:w-auto px-6 py-2.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg"
                 >
                   Close Window
                 </button>

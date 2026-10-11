@@ -4,13 +4,13 @@ import { Phone, MapPin, Clock, ShieldCheck, Flame, AlertCircle } from 'lucide-re
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#07111e] text-slate-300 border-t border-slate-800">
+    <footer className="bg-[#07111e] text-slate-300 border-t border-slate-800 w-full overflow-hidden">
       
       {/* Client Pitch Demo Disclaimer Banner */}
-      <div className="bg-amber-500/10 border-b border-amber-500/30 px-4 py-3 text-amber-200">
-        <div className="max-w-7xl mx-auto flex items-start sm:items-center gap-3 text-xs leading-relaxed">
+      <div className="bg-amber-500/10 border-b border-amber-500/30 px-3 sm:px-4 py-3 text-amber-200 w-full">
+        <div className="max-w-7xl mx-auto flex items-start sm:items-center gap-2.5 sm:gap-3 text-xs leading-relaxed">
           <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5 sm:mt-0" />
-          <div>
+          <div className="min-w-0">
             <span className="font-extrabold uppercase tracking-wide text-amber-300">
               Demo Concept Site Notice:
             </span>{' '}
@@ -21,16 +21,16 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 w-full">
           
           {/* Brand & Summary */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-3.5">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-white">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-white shrink-0">
                 <Flame className="w-4 h-4 fill-white" />
               </div>
-              <span className="text-lg font-black tracking-tight text-white">
+              <span className="text-base sm:text-lg font-black tracking-tight text-white">
                 TURRI PLUMBING SERVICES LTD
               </span>
             </div>
@@ -39,9 +39,9 @@ export const Footer: React.FC = () => {
               Family-run plumbing and heating engineers established in 2006. Gas Safe registered specialists serving Stepps, Glasgow, and surrounding communities with upfront free quotes and honest advice.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-slate-400">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-1 text-xs text-slate-400">
               <span className="flex items-center gap-1.5 text-amber-400 font-semibold">
-                <ShieldCheck className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4 shrink-0" />
                 <span>Gas Safe Registered</span>
               </span>
               <span aria-hidden="true" className="text-slate-700">·</span>
@@ -58,32 +58,32 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <a href="#services" className="hover:text-amber-400 transition-colors">
+                <a href="#services" className="hover:text-amber-400 transition-colors py-1 block">
                   All Heating & Plumbing Services
                 </a>
               </li>
               <li>
-                <a href="#why-us" className="hover:text-amber-400 transition-colors">
+                <a href="#why-us" className="hover:text-amber-400 transition-colors py-1 block">
                   Why Choose Turri Plumbing
                 </a>
               </li>
               <li>
-                <a href="#how-it-works" className="hover:text-amber-400 transition-colors">
+                <a href="#how-it-works" className="hover:text-amber-400 transition-colors py-1 block">
                   How Our 4-Step Process Works
                 </a>
               </li>
               <li>
-                <a href="#reviews" className="hover:text-amber-400 transition-colors">
+                <a href="#reviews" className="hover:text-amber-400 transition-colors py-1 block">
                   Customer Reviews (4.8 / 5.0)
                 </a>
               </li>
               <li>
-                <a href="#service-areas" className="hover:text-amber-400 transition-colors">
+                <a href="#service-areas" className="hover:text-amber-400 transition-colors py-1 block">
                   Glasgow & Stepps Service Areas
                 </a>
               </li>
               <li>
-                <a href="#booking" className="hover:text-amber-400 transition-colors">
+                <a href="#booking" className="hover:text-amber-400 transition-colors py-1 block">
                   Request Free Callback
                 </a>
               </li>
@@ -96,10 +96,10 @@ export const Footer: React.FC = () => {
               Hours & Emergency Line
             </h4>
 
-            <div className="space-y-2 text-xs text-slate-400">
+            <div className="space-y-2.5 text-xs text-slate-400">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                <span>{COMPANY_FACTS.address}</span>
+                <span className="break-words">{COMPANY_FACTS.address}</span>
               </div>
 
               <div className="flex items-start gap-2">
@@ -121,7 +121,7 @@ export const Footer: React.FC = () => {
               </div>
 
               {/* Emergency line note */}
-              <div className="pt-2 text-[11px] text-amber-300 font-semibold bg-slate-800/80 p-2.5 rounded-lg border border-slate-700">
+              <div className="pt-2 text-[11px] text-amber-300 font-semibold bg-slate-800/80 p-2.5 rounded-lg border border-slate-700 leading-snug">
                 {COMPANY_FACTS.hours.emergencyNote}
               </div>
             </div>
@@ -130,11 +130,11 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar with Concept Disclaimer Note */}
-        <div className="mt-12 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="mt-10 sm:mt-12 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 text-center sm:text-left">
           <div>
             © 2006–{new Date().getFullYear()} Turri Plumbing Services Ltd. All rights reserved.
           </div>
-          <div className="text-center sm:text-right text-[11px] text-slate-500">
+          <div className="text-[11px] text-slate-500">
             Concept Website Pitch Demo · Registered in Scotland
           </div>
         </div>
