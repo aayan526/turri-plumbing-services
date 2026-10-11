@@ -1,0 +1,6 @@
+{
+  "name": "Turri Plumbing Services Ltd",
+  "description": "Demo concept website for Turri Plumbing Services Ltd — Glasgow & Stepps plumbing and heating specialists since 2006. Gas Safe registered.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
