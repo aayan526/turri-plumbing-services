@@ -4,6 +4,10 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+
 import { EmergencyBanner } from './components/EmergencyBanner';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -18,16 +22,8 @@ import { ContactMap } from './components/ContactMap';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
 import { QuoteModal } from './components/QuoteModal';
-import { Phone } from 'lucide-react';
-import { COMPANY_FACTS } from './data/companyData';
 
-declare global {
-  interface Window {
-    Lenis?: any;
-    gsap?: any;
-    ScrollTrigger?: any;
-  }
-}
+gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
@@ -43,54 +39,48 @@ export default function App() {
     setSelectedServiceForQuote(undefined);
   };
 
-  // Lenis Smooth Scroll & Snappy Reveal Observers with Mandatory JS Safety Net
+  // Lenis Smooth Scroll & Snappy ScrollTrigger Reveal Observers with Mandatory JS Safety Net
   useEffect(() => {
-    // Check reduced motion
+    // Check reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // 1. Initialize Lenis if available and allowed
-    let lenisInstance: any = null;
-    if (!prefersReducedMotion && typeof window.Lenis !== 'undefined') {
+    // 1. Initialize Lenis smooth scroll with requestAnimationFrame loop
+    let lenis: Lenis | null = null;
+    let rafId: number | null = null;
+
+    if (!prefersReducedMotion) {
       try {
-        lenisInstance = new window.Lenis({
+        lenis = new Lenis({
           duration: 1.1,
           easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           smoothWheel: true,
         });
 
-        function raf(time: number) {
-          lenisInstance.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
+        lenis.on('scroll', ScrollTrigger.update);
+
+        const raf = (time: number) => {
+          lenis?.raf(time);
+          rafId = requestAnimationFrame(raf);
+        };
+        rafId = requestAnimationFrame(raf);
       } catch (e) {
         console.warn('Lenis initialization note:', e);
       }
     }
 
-    // 2. Snappy Scroll Reveal Setup with threshold ~0.05
-    const revealElements = document.querySelectorAll('.reveal-init');
-    let observer: IntersectionObserver | null = null;
-
-    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
-      observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('reveal-visible');
-              observer?.unobserve(entry.target);
-            }
-          });
-        },
-        {
-          rootMargin: '0px 0px -40px 0px',
-          threshold: 0.05,
-        }
-      );
-
-      revealElements.forEach((el) => observer?.observe(el));
+    // 2. Snappy ScrollTrigger reveals (threshold ~0.08 / top 92%)
+    const revealElements = gsap.utils.toArray<HTMLElement>('.reveal-init');
+    if (!prefersReducedMotion && revealElements.length > 0) {
+      revealElements.forEach((el) => {
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 92%',
+          onEnter: () => el.classList.add('reveal-visible'),
+          once: true,
+        });
+      });
     } else {
-      // If reduced motion or no observer, reveal everything immediately
+      // If reduced motion or SSR, reveal everything immediately
       revealElements.forEach((el) => el.classList.add('reveal-visible'));
     }
 
@@ -124,13 +114,12 @@ export default function App() {
     return () => {
       clearTimeout(safetyNetTimer);
       window.removeEventListener('scroll', handleScrollSafetyCheck);
-      observer?.disconnect();
-      if (lenisInstance) {
-        try {
-          lenisInstance.destroy();
-        } catch (e) {
-          // ignore
-        }
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      if (lenis) {
+        lenis.destroy();
       }
     };
   }, []);
@@ -144,7 +133,7 @@ export default function App() {
       <Navbar onOpenQuoteModal={handleOpenQuoteModal} />
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full overflow-x-hidden">
+      <main className="flex-1 w-full overflow-x-hidden pb-12 sm:pb-0">
         {/* Hero Section */}
         <div className="reveal-init">
           <Hero onOpenQuoteModal={handleOpenQuoteModal} />
@@ -194,19 +183,8 @@ export default function App() {
       {/* Footer with visible design-concept disclaimer */}
       <Footer />
 
-      {/* Floating Back to Top Button */}
+      {/* Repositioned floating action controls (Call 07831 191919 + Back to top) in bottom-right */}
       <BackToTop />
-
-      {/* Mobile Floating Direct Emergency Phone Pill (respects 15% mobile sticky cap) */}
-      <div className="fixed bottom-4 left-4 z-40 sm:hidden">
-        <a
-          href={COMPANY_FACTS.phoneTel}
-          className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-extrabold text-white bg-amber-600 hover:bg-amber-500 rounded-full shadow-lg border border-amber-400/40 active:scale-95 transition-all"
-        >
-          <Phone className="w-3.5 h-3.5 animate-pulse" />
-          <span>Call 07831 191919</span>
-        </a>
-      </div>
 
       {/* Free Quote Modal */}
       <QuoteModal

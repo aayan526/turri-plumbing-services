@@ -10,7 +10,7 @@ export const TrustStrip: React.FC = () => {
         {/* Metric Cards Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           
-          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 sm:p-5 flex flex-col justify-between">
+          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 sm:p-5 min-h-[145px] flex flex-col justify-between">
             <div className="flex items-center justify-between text-amber-400 mb-2">
               <span className="text-xs uppercase tracking-wider font-bold text-slate-400">Established</span>
               <Users className="w-4 h-4 text-amber-400" />
@@ -23,7 +23,7 @@ export const TrustStrip: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 sm:p-5 flex flex-col justify-between">
+          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 sm:p-5 min-h-[145px] flex flex-col justify-between">
             <div className="flex items-center justify-between text-amber-400 mb-2">
               <span className="text-xs uppercase tracking-wider font-bold text-slate-400">Google Rating</span>
               <div className="flex text-amber-400">
@@ -38,7 +38,7 @@ export const TrustStrip: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 sm:p-5 flex flex-col justify-between">
+          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 sm:p-5 min-h-[145px] flex flex-col justify-between">
             <div className="flex items-center justify-between text-amber-400 mb-2">
               <span className="text-xs uppercase tracking-wider font-bold text-slate-400">Accredited</span>
               <ShieldCheck className="w-4 h-4 text-amber-400" />
@@ -51,7 +51,7 @@ export const TrustStrip: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 sm:p-5 flex flex-col justify-between">
+          <div className="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 sm:p-5 min-h-[145px] flex flex-col justify-between">
             <div className="flex items-center justify-between text-amber-400 mb-2">
               <span className="text-xs uppercase tracking-wider font-bold text-slate-400">Boiler Brands</span>
               <Award className="w-4 h-4 text-amber-400" />
